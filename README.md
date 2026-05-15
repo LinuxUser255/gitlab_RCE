@@ -1,26 +1,36 @@
-# Gitlab RCE - Remote Code Execution
-RCE for old gitlab version &lt;= 11.4.7 & 12.4.0-12.8.1
+# GitLab RCE / LFI
 
-LFI for old gitlab versions 10.4 - 12.8.1
+Exploit toolkit for old GitLab versions. Primarily seen in CTFs — unlikely to
+work against patched production instances. **Educational use only.**
 
-This is an exploit for old Gitlab versions. This shouldnt work in the wild but it still seems to be popular in CTFs. 
-Educational use only. Illegal things are illegal.
+## Affected versions
 
-CVEs: CVE-2018-19571 (SSRF) + CVE-2018-19585 (CRLF) & CVE-2020-10977
+| Type | Versions |
+|------|----------|
+| RCE (Redis SSRF) | <= 11.4.7 |
+| LFI + RCE (cookie deserialization) | 12.4.0 – 12.8.1 |
+| LFI only | 10.4 – 12.8.1 |
 
-credits: 
+## CVEs
 
-  https://www.youtube.com/watch?v=LrLJuyAdoAg - LiveOverflow  
-  https://github.com/jas502n/gitlab-SSRF-redis-RCE - jas502n  
-  https://hackerone.com/reports/827052 - vakzz  
-  partly inspired by the gitlab RCE metasploit module
-  
-usage:
+- [CVE-2018-19571](https://nvd.nist.gov/vuln/detail/CVE-2018-19571) — SSRF
+- [CVE-2018-19585](https://nvd.nist.gov/vuln/detail/CVE-2018-19585) — CRLF injection
+- [CVE-2020-10977](https://nvd.nist.gov/vuln/detail/CVE-2020-10977) — path traversal / LFI
+- [CVE-2020-8163](https://nvd.nist.gov/vuln/detail/CVE-2020-8163) — RCE via ERB cookie deserialization
 
-  `python gitlab_rce.py <http://gitlab:port> <local-ip>`
-  
-  You might or might not have to tweak this a bit.
+## Usage
 
-THERE ARE ~~ABSOLUTELY !!NO!!~~ ~~VERY~~ A FEW CHECKS OR ERROR HANDLING! 
+```bash
+pip install -r requirements.txt
+chmod +x main.py
+./main.py <http://gitlab:port> <local-ip>
+```
 
-needs a HUGE refactor some time in the future.
+You will be prompted to select an exploit and start a listener before delivery.
+
+## Credits
+
+- [LiveOverflow](https://www.youtube.com/watch?v=LrLJuyAdoAg)
+- [jas502n](https://github.com/jas502n/gitlab-SSRF-redis-RCE)
+- [vakzz — HackerOne #827052](https://hackerone.com/reports/827052)
+- Partly inspired by the GitLab RCE Metasploit module
