@@ -1,7 +1,13 @@
 # GitLab RCE / LFI
 
+## Complete refactor code base
+
+Functionality is broken up into modules for easy customization and separation of concerns
+
 Exploit toolkit for old GitLab versions. Primarily seen in CTFs — unlikely to
 work against patched production instances. **Educational use only.**
+
+
 
 ## Affected versions
 
